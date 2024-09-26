@@ -1,0 +1,37 @@
+const express = require('express');
+const app = express();
+const path = require('path');
+
+const host = 5000;
+app.set('view engine', 'ejs');
+app.use(express.static(path.join(__dirname, 'public')));
+
+app.use(function(req, res, send){
+    console.log('middle ware challa');
+    send();
+});
+
+app.get('/', function(req, res){
+    res.send("Home Page");
+});
+
+app.get('/about', function(req, res){
+    res.render("index");
+});
+
+app.get('/profile/:username', function(req, res){
+    res.send(`Welcome, ${req.params.username}`);
+});
+
+
+app.listen(host, () => {
+    console.log(`Server is running at ${host}`);
+    
+})
+
+
+
+//EJS is just like HTML, But in this we can perform calculation like: <h1> 2+2 </h1>  it will give (4);
+      <%= 2+2 %>
+
+      EJS page me PUBLIC ka naam nhi likhna hai
